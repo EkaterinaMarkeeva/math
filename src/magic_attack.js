@@ -8,12 +8,16 @@ export default class MagicAttack extends Character {
   }
   
   set attack(value) {
+    this._attack = value;
+  }
+
+  get attack() {
     if (!this.range || this.range <= 0) {
-      this._attack = value;
+      return this._attack;
     } else {
       let percent = 1 - (this.range - 1) / 10;
   
-      this._attack = value * percent;
+      this._attack = this._attack * percent;
       this._attack = Math.trunc(this._attack);
 
       if (this.stoned) {
@@ -23,9 +27,6 @@ export default class MagicAttack extends Character {
         this._attack = Math.trunc(this._attack);
       }
     } 
-  }
-
-  get attack() {
     return this._attack;
   }
 
