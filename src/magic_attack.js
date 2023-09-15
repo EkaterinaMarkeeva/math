@@ -1,7 +1,7 @@
 import Character from './character';
 // eslint-disable-next-line
 export default class MagicAttack extends Character {
-  constructor(name, type, config) {
+  constructor(name, type, config = false) {
     super(name, type);
     this.range = config.range;
     this.stoned = config.stoned;

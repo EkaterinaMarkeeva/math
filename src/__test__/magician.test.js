@@ -4,7 +4,6 @@ test.each([
   [
     'Alise', 
     'Magician',
-    {range: null},
     {
       name: 'Alise', 
       type: 'Magician', 
@@ -12,14 +11,13 @@ test.each([
       level: 1,
       _attack: 10,
       defence: 40,
-      range: null,
+      range: undefined,
       _stoned: undefined
     }
   ],
   [
     'Dima', 
     undefined,
-    {range: null},
     {
       name: 'Dima', 
       type: 'Magician', 
@@ -27,35 +25,35 @@ test.each([
       level: 1,
       _attack: 10,
       defence: 40,
-      range: null,
+      range: undefined,
       _stoned: undefined
     }
   ]
 ])// eslint-disable-next-line
-('testin Character class with %s name and %s type', (name, type, config, expected) => {
-  const result = new Magician(name, type, config);
+('testin Character class with %s name and %s type', (name, type, expected) => {
+  const result = new Magician(name, type);
   expect(result).toEqual(expected);
 });
 
 test.each([
-  ['A', 'Magician', {range: null}, new Error("Имя должно быть не менее 2 и не более 10 символов")],
-  ['Abrakadabra', 'Magician', {range: null}, new Error("Имя должно быть не менее 2 и не более 10 символов")],
-  ['Zombie', 'Abrakadabra', {range: null}, new Error("Тип не найден")]
+  ['A', 'Magician', new Error("Имя должно быть не менее 2 и не более 10 символов")],
+  ['Abrakadabra', 'Magician', new Error("Имя должно быть не менее 2 и не более 10 символов")],
+  ['Zombie', 'Abrakadabra', new Error("Тип не найден")]
 ])// eslint-disable-next-line
-('testin throws Error with %s name and %s type', (name, type, config, expected) => {
+('testin throws Error with %s name and %s type', (name, type, expected) => {
   function result() {
-    new Magician(name, type, config);
+    new Magician(name, type,);
   }
   expect(result).toThrow(expected);
 });
 
 test.each([
-  ['Alise', 'Magician', {range: null}, 1, 2],
-  ['Dima', 'Magician', {range: null}, 9, 10],
-  ['Zombie', 'Magician', {range: null}, 100, 101]
+  ['Alise', 'Magician', 1, 2],
+  ['Dima', 'Magician', 9, 10],
+  ['Zombie', 'Magician', 100, 101]
 ])// eslint-disable-next-line
-('testin levelUp method with %s name, %s type and %i levelUp', (name, type, config, index, expected) => {
-  const result = new Magician(name, type, config);
+('testin levelUp method with %s name, %s type and %i levelUp', (name, type, index, expected) => {
+  const result = new Magician(name, type);
   for (let i = 0; i < index; i += 1) {
     result.levelUp();
   }
@@ -63,11 +61,11 @@ test.each([
 });
 
 test.each([
-  ['Zombie', 'Magician', {range: null}, new Error("Нельзя повысить левел умершего")]
+  ['Zombie', 'Magician', new Error("Нельзя повысить левел умершего")]
 ])// eslint-disable-next-line
-('testin throws Error with %s name and %s type', (name, type, config, expected) => {
+('testin throws Error with %s name and %s type', (name, type, expected) => {
   function result() {
-    const result = new Magician(name, type, config);
+    const result = new Magician(name, type);
     result.damage(1000);
     result.levelUp();
   }
@@ -75,11 +73,11 @@ test.each([
 });
 
 test.each([
-  ['Alise', 'Magician', {range: null}, 1000, 0],
-  ['Dima', 'Magician', {range: null}, 100, 40]
+  ['Alise', 'Magician', 1000, 0],
+  ['Dima', 'Magician', 100, 40]
 ])// eslint-disable-next-line
-('testin damage method with %s name, %s type and %i points', (name, type, config, points, expected) => {
-  const result = new Magician(name, type, config);
+('testin damage method with %s name, %s type and %i points', (name, type, points, expected) => {
+  const result = new Magician(name, type);
   result.damage(points);
   expect(result.health).toEqual(expected);
 });
